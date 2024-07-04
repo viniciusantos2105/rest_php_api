@@ -26,4 +26,9 @@ class UserController extends Controller{
         return response()->json($user, 200);
     }
 
+    public function getUser($userId) : JsonResponse
+    {
+        $user = $this->userService->getUser($userId);
+        return response()->json($user, 200);
+    }
 }

@@ -3,6 +3,8 @@
 namespace App\Repositories;
 
 use App\Domain\Models\User;
+use Illuminate\Support\Facades\DB;
+
 
 class UserRepositoryImpl implements UserRepository
 {
@@ -15,12 +17,26 @@ class UserRepositoryImpl implements UserRepository
 
     public function createUser(array $data) : User
     {
-        return $this->model->create($data);
+        DB::beginTransaction();
+
+        $usuario = $this->model->create($data);
+        DB::commit();
+
+        return $usuario;
     }
 
-    public function updateUser(User $user, array $data)
+    public function updateUser(int $userId, array $data)
     {
-        return $this->model->update($data);
+        DB::beginTransaction();
+        $usuario = $this->findUserById($userId);
+        error_log(print_r($data, true));
+        $usuario->update([
+            'userName' => $data['userName'] ?? $usuario->userName,
+            'userEmail' => $data['userEmail'] ?? $usuario->userEmail,
+            'userPassword' => $data['userPassword'] ?? $usuario->userPassword,
+        ]);
+        DB::commit();
+        return $usuario;
     }
 //
 //    public function deleteUser(User $user)
@@ -30,7 +46,7 @@ class UserRepositoryImpl implements UserRepository
 //
     public function findUserById(int $id): User
     {
-       return $this->model->find($id);
+       return User::where('id', $id)->first();
     }
 //
 //    public function findUserByEmail(string $email): User

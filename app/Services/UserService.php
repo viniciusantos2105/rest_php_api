@@ -29,9 +29,19 @@ class UserService
 
     public function updateUser($userId, UserUpdateRequest $request): User
     {
-        $oldUser = $this->userRepository->findUserById($userId);
-        error_log($oldUser);
-        return $oldUser;
+        $updatedUser = [
+            "userName" => $request->userName,
+            "userEmail" => $request->userEmail,
+            "userPassword" => $request->userPassword
+        ];
+        $usuario = $this->userRepository->updateUser($userId, $updatedUser);
+        return $usuario;
     }
 
+
+    public function getUser($userId)
+    {
+        $usuario = $this->userRepository->findUserById($userId);
+        return $usuario;
+    }
 }

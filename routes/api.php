@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('user')->group(function () {
+    Route::get('/{userId}', [UserController::class, 'getUser']);
     Route::post('/create', [UserController::class, 'createUser']);
     Route::put('/update/{userId}', [UserController::class, 'updateUser']);
 });

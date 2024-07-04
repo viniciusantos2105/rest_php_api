@@ -10,9 +10,9 @@ class UserUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'userName' => 'required|string',
-            'userEmail' => 'required|string|email',
-            'userPassword' => 'required|string|min:8',
+            'userName' => 'sometimes|string',
+            'userEmail' => 'sometimes|string|email',
+            'userPassword' => 'sometimes|string|min:8',
         ];
     }
 

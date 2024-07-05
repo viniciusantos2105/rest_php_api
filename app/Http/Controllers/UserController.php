@@ -31,4 +31,10 @@ class UserController extends Controller{
         $user = $this->userService->getUser($userId);
         return response()->json($user, 200);
     }
+
+    public function deleteUser($userId): JsonResponse
+    {
+        $this->userService->deleteUserById($userId);
+        return response()->json(null, 204);
+    }
 }

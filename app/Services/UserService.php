@@ -17,6 +17,12 @@ class UserService
         $this->userRepository = $userRepository;
     }
 
+    public function getUser($userId)
+    {
+        $usuario = $this->userRepository->findUserById($userId);
+        return $usuario;
+    }
+
     public function createUser(UserCreateRequest $request): User
     {
         $user = [
@@ -26,6 +32,7 @@ class UserService
         ];
         return $this->userRepository->createUser($user);
     }
+
 
     public function updateUser($userId, UserUpdateRequest $request): User
     {
@@ -38,10 +45,8 @@ class UserService
         return $usuario;
     }
 
-
-    public function getUser($userId)
+    public function deleteUserById($userId) : void
     {
-        $usuario = $this->userRepository->findUserById($userId);
-        return $usuario;
+        $this->userRepository->deleteUserById($userId);
     }
 }

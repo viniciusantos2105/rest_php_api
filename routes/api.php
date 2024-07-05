@@ -23,4 +23,5 @@ Route::prefix('user')->group(function () {
     Route::get('/{userId}', [UserController::class, 'getUser']);
     Route::post('/create', [UserController::class, 'createUser']);
     Route::put('/update/{userId}', [UserController::class, 'updateUser']);
+    Route::delete('/delete/{userId}', [UserController::class, 'deleteUser']);
 });

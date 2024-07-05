@@ -38,12 +38,15 @@ class UserRepositoryImpl implements UserRepository
         DB::commit();
         return $usuario;
     }
-//
-//    public function deleteUser(User $user)
-//    {
-//        // TODO: Implement deleteUser() method.
-//    }
-//
+
+    public function deleteUserById(int $userId)
+    {
+        DB::beginTransaction();
+        $usuario = $this->findUserById($userId);
+        $usuario->delete();
+        DB::commit();
+    }
+
     public function findUserById(int $id): User
     {
        return User::where('id', $id)->first();
